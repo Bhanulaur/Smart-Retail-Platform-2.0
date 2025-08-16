@@ -1,0 +1,13 @@
+smart-retail-platform-2.0/
+ ├── config-service         # Centralized Spring Cloud config
+ ├── gateway-service        # Spring Cloud Gateway + JWT Auth
+ ├── product-service        # Hibernate + Postgres
+ ├── order-service          # Async orders + Kafka + Redis cache
+ ├── inventory-service      # Optimistic locking + Cassandra
+ ├── payment-service        # Secure payment (Stripe API)
+ ├── analytics-service      # RxJava + MongoDB + Spark ML
+ ├── notification-service   # Reactive emails/SMS (WebFlux)
+ ├── fraud-detection        # Python ML (scikit-learn) served via REST
+ ├── legacy-integration     # JDBC + SOAP bridge
+ ├── frontend-dashboard     # Node.js + React + GraphQL
+ └── observability-stack    # Prometheus, Grafana, ELK, Jaeger
