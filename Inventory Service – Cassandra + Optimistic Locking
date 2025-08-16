@@ -1,0 +1,10 @@
+@Table("inventory")
+public class Inventory {
+    @PrimaryKey
+    private String sku;
+
+    private int quantity;
+
+    @Version
+    private long version; // Optimistic locking
+}
