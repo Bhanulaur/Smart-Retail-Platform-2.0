@@ -1,0 +1,24 @@
+@Service
+public class OrderService {
+
+    private final KafkaTemplate<String, Order> kafkaTemplate;
+    private final RedisTemplate<String, Order> redisTemplate;
+
+    public OrderService(KafkaTemplate<String, Order> kafkaTemplate, RedisTemplate<String, Order> redisTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
+        this.redisTemplate = redisTemplate;
+    }
+
+    @Async
+    public CompletableFuture<Order> placeOrder(Order order) {
+        return CompletableFuture.supplyAsync(() -> {
+            // Save in Redis cache (fast)
+            redisTemplate.opsForValue().set("order:" + order.getId(), order);
+
+            // Publish event for other services
+            kafkaTemplate.send("orders", order);
+
+            return order;
+        });
+    }
+}
