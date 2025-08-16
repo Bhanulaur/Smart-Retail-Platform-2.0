@@ -8,3 +8,9 @@ public class Inventory {
     @Version
     private long version; // Optimistic locking
 }
+public void decreaseStock(String sku, int amount) {
+    Inventory inv = repo.findById(sku).orElseThrow();
+    if (inv.getQuantity() < amount) throw new IllegalStateException("Not enough stock");
+    inv.setQuantity(inv.getQuantity() - amount);
+    repo.save(inv); // version checked
+}
